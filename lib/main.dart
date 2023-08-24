@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/responsive/responsive_layout.dart';
-import 'package:messenger/screens/mobile_screen_layout.dart';
-import 'package:messenger/screens/web_screen_layout.dart';
 import 'package:messenger/colors.dart';
+import 'package:messenger/screens/mobile_layout_screen.dart';
+import 'package:messenger/screens/web_layout_screen.dart';
+import 'package:messenger/utils/responsive_layout.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Messenger Ui',
-      theme:
-          ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
-      home: const Scaffold(
-        body: RespnsiveLayout(
-            mobileScreenLayout: MobileScreenLayout(),
-            webScreenLayout: WebScreenLayout()),
+      debugShowCheckedModeBanner: false,
+      title: 'Whatsapp UI',
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: backgroundColor,
+      ),
+      home: const ResponsiveLayout(
+        mobileScreenLayout: MobileLayoutScreen(),
+        webScreenLayout: WebLayoutScreen(),
       ),
     );
   }
