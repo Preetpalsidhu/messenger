@@ -114,7 +114,14 @@ class _BottomChatFieldState extends State<BottomChatField> {
           context: context, apiKey: "coVQFsROeLIySlbDhRM1z055vanshA3x");
       if (gif != null) {
         print(gif);
-        // context.read<ChatProvider>().sendGif(gifUrl, receiverId);
+        int gifUrlPartIndex = gif.url.lastIndexOf('-') + 1;
+        String gifUrlPart = gif.url.substring(gifUrlPartIndex);
+        String newgifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
+        print(newgifUrl);
+
+        context
+            .read<ChatProvider>()
+            .sendGif(newgifUrl, receiverId, widget.isGroup, widget.chatId);
       }
     }
 

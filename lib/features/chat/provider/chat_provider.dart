@@ -35,7 +35,7 @@ class ChatProvider extends ChangeNotifier {
         .doc(messageId)
         .get()
         .then((value) => Message.fromMap(value.data()!));
-
+    print(msg.text);
     SqlMessageProvider().addMessage(
         messageId,
         msg.senderId,
@@ -63,11 +63,17 @@ class ChatProvider extends ChangeNotifier {
       for (var change in event.docChanges) {
         if (change.type == DocumentChangeType.added) {
           Notify res = Notify.fromMap(change.doc.data()!);
-          notification.add(Notify.fromMap(change.doc.data()!));
+          print(res.id);
+          // notification.add(Notify.fromMap(change.doc.data()!));
           await saveMessage(res.chatId, res.id);
+          await firestore
+              .collection('notification')
+              .doc(auth.currentUser!.uid)
+              .collection(auth.currentUser!.uid)
+              .doc(res.id)
+              .delete();
         }
       }
-
       print(notification);
     });
   }
@@ -191,6 +197,7 @@ class ChatProvider extends ChangeNotifier {
         .get()
         .then((QuerySnapshot) {
       for (var doc in QuerySnapshot.docs) {
+        print(doc);
         return Message.fromMap(doc.data());
       }
     });
@@ -245,6 +252,8 @@ class ChatProvider extends ChangeNotifier {
         chats.add(chat);
       }
     }
+    print(chats);
+    await SqlMessageProvider().getMessage();
     return chats;
   }
 
@@ -334,8 +343,8 @@ class ChatProvider extends ChangeNotifier {
         type: "message", id: messageId, timeSent: timeSent, chatId: chatId);
     await firestore
         .collection('notification')
-        .doc(auth.currentUser!.uid)
-        .collection(auth.currentUser!.uid)
+        .doc(receiverId)
+        .collection(receiverId)
         .doc(messageId)
         .set(notification.toMap());
     //fetchMessages(chatId);
@@ -344,7 +353,7 @@ class ChatProvider extends ChangeNotifier {
   sendGif(gifUrl, receiverId, isGroup, GroupId) async {
     String id = const Uuid().v1();
     try {
-      sendMessage(receiverId, gifUrl, MessageEnum.gif, isGroup, GroupId);
+      sendMessage(receiverId, isGroup, GroupId, gifUrl, MessageEnum.gif);
     } catch (e) {
       throw (e);
     }

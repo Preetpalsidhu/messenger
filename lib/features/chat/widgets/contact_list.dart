@@ -18,11 +18,12 @@ class _ContactListState extends State<ContactsList> {
   List<RecentChat> data = [];
   getData() async {
     var res = await context.read<ChatProvider>().fetchLastChatData();
-
     setState(() {
       data = [];
       data = res;
+      print(data);
     });
+    context.read<ChatProvider>().getNotifications();
   }
 
   @override

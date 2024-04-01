@@ -46,25 +46,28 @@ class _SelectContactState extends State<SelectContact> {
       final contacts = await FlutterContacts.getContacts(
           withProperties: true, withPhoto: true);
       for (var element in contacts) {
-        print(element.phones[0].number);
-        await firestore
-            .collection("users")
-            .where("phoneNumber", isEqualTo: element.phones[0].number)
-            .get()
-            .then((querySnapshot) {
-          for (var docSnapshot in querySnapshot.docs) {
-            var user = UserModel.fromMap(docSnapshot.data());
-            setState(() {
-              users!.add(user);
+        if (element.phones.length > 0) {
+          if (element.phones[0].number.length > 10) {
+            print(element.phones[0].number);
+            await firestore
+                .collection("users")
+                .where("phoneNumber", isEqualTo: element.phones[0].number)
+                .get()
+                .then((querySnapshot) {
+              for (var docSnapshot in querySnapshot.docs) {
+                var user = UserModel.fromMap(docSnapshot.data());
+                setState(() {
+                  users!.add(user);
+                });
+                var res = user.name;
+                print(res);
+              }
             });
-            var res = user.name;
-            print(res);
           }
-        });
+        }
       }
-
-      await firestore.collection("groupId").where("members",
-          arrayContains: FirebaseAuth.instance.currentUser!.uid);
+      // await firestore.collection("groupId").where("members",
+      //     arrayContains: FirebaseAuth.instance.currentUser!.uid);
     }
   }
 

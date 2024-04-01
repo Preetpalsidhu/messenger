@@ -26,6 +26,7 @@ class SqlMessageProvider extends ChangeNotifier {
       String repliedTo,
       String repliedMessageType) async {
     Database db = await openDb();
+    print(text);
     await db.rawInsert(
         "INSERT INTO Message(messageId,senderId, receiverId, text, type, timeSent,  isGroup, chatId, isSeen, repliedMessage, repliedTo,repliedMessageType) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);",
         [
@@ -48,7 +49,7 @@ class SqlMessageProvider extends ChangeNotifier {
   getMessage() async {
     Database db = await openDb();
     var list = await db.rawQuery("SELECT * FROM Message");
-    print(list);
+    print(list.last);
     return list;
   }
 }
