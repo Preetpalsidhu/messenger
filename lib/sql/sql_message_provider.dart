@@ -49,7 +49,7 @@ class SqlMessageProvider extends ChangeNotifier {
   getMessage() async {
     Database db = await openDb();
     var list = await db.rawQuery("SELECT * FROM Message");
-    print(list.last);
+    print(list);
     return list;
   }
 }

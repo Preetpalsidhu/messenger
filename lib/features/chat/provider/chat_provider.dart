@@ -183,15 +183,15 @@ class ChatProvider extends ChangeNotifier {
     return res;
   }
 
-  fetchLastMsg(id) async {
-    print(id);
+  fetchLastMsg(chatid) async {
+    print(chatid);
     Message msg;
     var res = await firestore
         .collection("chats")
         .doc('chat')
         .collection("chat")
-        .doc(id)
-        .collection(id)
+        .doc(chatid)
+        .collection(chatid)
         .orderBy("timeSent", descending: true)
         .limit(1)
         .get()
