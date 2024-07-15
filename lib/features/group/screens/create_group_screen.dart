@@ -9,7 +9,6 @@ import 'package:messenger/common/enums/meassage_enums.dart';
 import 'package:messenger/common/util/colors.dart';
 import 'package:messenger/features/chat/provider/chat_provider.dart';
 import 'package:messenger/features/group/providers/group_provider.dart';
-import 'package:messenger/features/group/widgets/select_contacts_group.dart';
 import 'package:messenger/model/user_model.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +66,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         for (var docSnapshot in querySnapshot.docs) {
           var user = UserModel.fromMap(docSnapshot.data());
           setState(() {
-            users!.add(user);
+            users.add(user);
           });
           var res = user.name;
           print(res);
@@ -166,7 +165,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
               ),
             ),
             if (users == [])
-              CircularProgressIndicator.adaptive()
+              const CircularProgressIndicator.adaptive()
             else
               Expanded(
                 child: ListView.builder(
@@ -199,7 +198,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: createGroup,
+        onPressed: () => createGroup(),
         backgroundColor: tabColor,
         child: const Icon(
           Icons.done,

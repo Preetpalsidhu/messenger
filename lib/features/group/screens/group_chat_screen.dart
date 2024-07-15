@@ -2,14 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:messenger/common/util/colors.dart';
-import 'package:messenger/features/auth/provider/auth_provider.dart';
-import 'package:messenger/features/chat/provider/chat_provider.dart';
 import 'package:messenger/features/chat/widgets/bottom_chat_field.dart';
 import 'package:messenger/features/group/providers/group_provider.dart';
 import 'package:messenger/model/group_id.dart';
 //import 'package:messenger/features/call/provider/call_provider.dart';
 //import 'package:messenger/model/call.dart';
-import 'package:messenger/model/user_model.dart';
 import 'package:messenger/features/chat/widgets/chat_list.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +43,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? CircularProgressIndicator.adaptive()
+        ? const CircularProgressIndicator.adaptive()
         : Scaffold(
             backgroundColor: backgroundColor,
             appBar: AppBar(
@@ -59,14 +56,6 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                     // ; context.read<CallProvider>().makeCall();
                   },
                   icon: const Icon(Icons.video_call),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.call),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_vert),
                 ),
               ],
             ),

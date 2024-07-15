@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/properties/group.dart';
-import 'package:messenger/model/chat_id.dart';
 import 'package:messenger/model/group_id.dart';
 import 'package:uuid/uuid.dart';
 
@@ -28,7 +26,7 @@ class GroupProvider extends ChangeNotifier {
     String id = const Uuid().v4();
 
     UploadTask uploadTask =
-        FirebaseStorage.instance.ref().child("/profile/${id}").putFile(image!);
+        FirebaseStorage.instance.ref().child("/profile/$id").putFile(image!);
     TaskSnapshot snap = await uploadTask;
     String pic = await snap.ref.getDownloadURL();
 

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:messenger/model/user_model.dart';
 
@@ -31,7 +30,7 @@ class _SelectContactsGroupState extends State<SelectContactsGroup> {
         for (var docSnapshot in querySnapshot.docs) {
           var user = UserModel.fromMap(docSnapshot.data());
           setState(() {
-            users!.add(user);
+            users.add(user);
           });
           var res = user.name;
           print(res);
@@ -65,7 +64,7 @@ class _SelectContactsGroupState extends State<SelectContactsGroup> {
 
   @override
   Widget build(BuildContext context) {
-    if (users == []) return CircularProgressIndicator.adaptive();
+    if (users == []) return const CircularProgressIndicator.adaptive();
     return Expanded(
       child: ListView.builder(
           itemCount: users.length,

@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       phoneNum = '+${selectedCountry!.phoneCode}$phoneNum';
       if (selectedCountry != null && phoneNum.isNotEmpty) {
         try {
-          context.read<AuthProvider>().signIn(context, phoneNum);
+          context.read<MyAuthProvider>().signIn(context, phoneNum);
         } catch (err) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(err.toString())));

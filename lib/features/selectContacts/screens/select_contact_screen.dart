@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:messenger/common/util/colors.dart';
 import 'package:messenger/features/chat/screens/mobile_chat_screen.dart';
-import 'package:messenger/features/selectContacts/provider/contact_provider.dart';
 import 'package:messenger/model/user_model.dart';
-import 'package:provider/provider.dart';
 
 class SelectContact extends StatefulWidget {
   const SelectContact({super.key});
@@ -46,7 +43,7 @@ class _SelectContactState extends State<SelectContact> {
       final contacts = await FlutterContacts.getContacts(
           withProperties: true, withPhoto: true);
       for (var element in contacts) {
-        if (element.phones.length > 0) {
+        if (element.phones.isNotEmpty) {
           if (element.phones[0].number.length > 10) {
             print(element.phones[0].number);
             await firestore
@@ -110,7 +107,7 @@ class _SelectContactState extends State<SelectContact> {
             leading: CircleAvatar(child: Image.network(users![i].profilePic)),
             title: Text(
               users![i].name,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             onTap: () {
               Navigator.push(

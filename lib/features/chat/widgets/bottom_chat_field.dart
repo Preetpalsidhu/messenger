@@ -92,17 +92,15 @@ class _BottomChatFieldState extends State<BottomChatField> {
     void selectImage() async {
       XFile? res = await ImagePicker().pickImage(source: ImageSource.gallery);
       File image = File(res!.path);
-      if (image != null) {
-        context
-            .read<ChatProvider>()
-            .sendImage(image, receiverId, widget.isGroup, widget.chatId);
-      }
+      context
+          .read<ChatProvider>()
+          .sendImage(image, receiverId, widget.isGroup, widget.chatId);
     }
 
     void selectVideo() async {
       XFile? res = await ImagePicker().pickVideo(source: ImageSource.gallery);
       if (res != null) {
-        File video = File(res!.path);
+        File video = File(res.path);
         context
             .read<ChatProvider>()
             .sendVideo(video, receiverId, widget.isGroup, widget.chatId);
@@ -241,15 +239,16 @@ class _BottomChatFieldState extends State<BottomChatField> {
                 backgroundColor: const Color(0xFF128C7E),
                 radius: 25,
                 child: GestureDetector(
+                  onTap: sendTextMessage,
                   child: Icon(
-                    isShowSendButton
-                        ? Icons.send
-                        : isRecording
-                            ? Icons.close
-                            : Icons.mic,
+                    Icons.send,
+                    // isShowSendButton
+                    //     ? Icons.send
+                    //     : isRecording
+                    //         ? Icons.close
+                    //         : Icons.mic,
                     color: Colors.white,
                   ),
-                  onTap: sendTextMessage,
                 ),
               ),
             ),

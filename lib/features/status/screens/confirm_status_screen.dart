@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:messenger/common/util/colors.dart';
 import 'package:messenger/features/auth/provider/auth_provider.dart';
 import 'package:messenger/features/status/provider/status_provider.dart';
-import 'package:messenger/model/user_model.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmStatusScreen extends StatelessWidget {
@@ -14,7 +13,7 @@ class ConfirmStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     File status = File(path);
-    var uid = context.read<AuthProvider>().auth.currentUser!.uid;
+    var uid = context.read<MyAuthProvider>().auth.currentUser!.uid;
     return Scaffold(
       body: Center(
         child: AspectRatio(

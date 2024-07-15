@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:messenger/common/util/colors.dart';
 import 'package:messenger/features/auth/provider/auth_provider.dart';
 import 'package:messenger/features/chat/widgets/display_message.dart';
@@ -13,8 +14,11 @@ class MessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var outputFormat = DateFormat('MM/dd/yy hh:mm a');
     String user = FirebaseAuth.instance.currentUser!.uid;
-    context.read<AuthProvider>().getCurrentUserData();
+    print(user);
+    print(message.senderId);
+    context.read<MyAuthProvider>().getCurrentUserData();
     return Align(
       alignment: message.senderId == user
           ? Alignment.centerRight
@@ -23,6 +27,7 @@ class MessageCard extends StatelessWidget {
               : Alignment.centerLeft,
       child: ConstrainedBox(
         constraints: BoxConstraints(
+          minWidth: MediaQuery.of(context).size.width * .45,
           maxWidth: MediaQuery.of(context).size.width - 45,
         ),
         child: Card(
@@ -49,20 +54,20 @@ class MessageCard extends StatelessWidget {
                     : Row(
                         children: [
                           Text(
-                            message.timeSent.toString(),
+                            outputFormat.format(message.timeSent),
                             style: const TextStyle(
-                              fontSize: 13,
+                              fontSize: 10,
                               color: Colors.white60,
                             ),
                           ),
                           const SizedBox(
                             width: 5,
                           ),
-                          const Icon(
-                            Icons.done_all,
-                            size: 20,
-                            color: Colors.white60,
-                          ),
+                          // const Icon(
+                          //   Icons.done_all,
+                          //   size: 20,
+                          //   color: Colors.white60,
+                          // ),
                         ],
                       ),
               ),

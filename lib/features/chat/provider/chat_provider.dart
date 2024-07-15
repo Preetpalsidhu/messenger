@@ -53,7 +53,7 @@ class ChatProvider extends ChangeNotifier {
 
   getNotifications() async {
     List<Notify> notification = [];
-    var res = await firestore
+    var res = firestore
         .collection("notification")
         .doc(auth.currentUser!.uid)
         .collection(auth.currentUser!.uid)
@@ -99,7 +99,7 @@ class ChatProvider extends ChangeNotifier {
     );
     print(res);
     if (res == '') {
-      var id = Uuid().v1();
+      var id = const Uuid().v1();
       ChatId chatId = ChatId(chatId: id, receiverId: receiverId);
       await firestore
           .collection("chats")
@@ -110,7 +110,7 @@ class ChatProvider extends ChangeNotifier {
           .doc()
           .set(chatId.toMap());
       res = id;
-      chatId = await ChatId(
+      chatId = ChatId(
           chatId: id, receiverId: FirebaseAuth.instance.currentUser!.uid);
       await firestore
           .collection("chats")
@@ -253,7 +253,7 @@ class ChatProvider extends ChangeNotifier {
       }
     }
     print(chats);
-    await SqlMessageProvider().getMessage();
+    // await SqlMessageProvider().getMessage();
     return chats;
   }
 
@@ -355,7 +355,7 @@ class ChatProvider extends ChangeNotifier {
     try {
       sendMessage(receiverId, isGroup, GroupId, gifUrl, MessageEnum.gif);
     } catch (e) {
-      throw (e);
+      rethrow;
     }
   }
 
@@ -368,7 +368,7 @@ class ChatProvider extends ChangeNotifier {
       String imageUrl = await snap.ref.getDownloadURL();
       sendMessage(receiverId, isGroup, GroupId, imageUrl, MessageEnum.image);
     } catch (e) {
-      throw (e);
+      rethrow;
     }
   }
 
@@ -381,7 +381,7 @@ class ChatProvider extends ChangeNotifier {
       String videoUrl = await snap.ref.getDownloadURL();
       sendMessage(receiverId, isGroup, GroupId, videoUrl, MessageEnum.video);
     } catch (e) {
-      throw (e);
+      rethrow;
     }
   }
 }

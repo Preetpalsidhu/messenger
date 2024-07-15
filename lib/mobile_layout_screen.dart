@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:messenger/common/util/colors.dart';
 import 'package:messenger/features/chat/widgets/contact_list.dart';
 import 'package:messenger/features/group/screens/create_group_screen.dart';
-import 'package:messenger/features/selectContacts/screens/select_contact_screen.dart';
 import 'package:messenger/features/status/screens/status_contacts_screen.dart';
 
 class MobileLayoutScreen extends StatefulWidget {
@@ -43,26 +42,25 @@ class _MobileLayoutScreenState extends State<MobileLayoutScreen>
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.search, color: Colors.grey),
-              onPressed: () {},
-            ),
-            IconButton(
               icon: const Icon(Icons.more_vert, color: Colors.grey),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => CreateGroupScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const CreateGroupScreen()));
               },
             ),
           ],
-          bottom: const TabBar(
+          bottom: TabBar(
+            controller: tabBarController,
             indicatorColor: tabColor,
             indicatorWeight: 4,
             labelColor: tabColor,
             unselectedLabelColor: Colors.grey,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
-            tabs: [
+            tabs: const [
               Tab(
                 text: 'CHATS',
               ),

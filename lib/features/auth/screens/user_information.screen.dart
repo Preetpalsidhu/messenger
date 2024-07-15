@@ -29,7 +29,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
     String photoUrl =
         'https://png.pngitem.com/pimgs/s/649-6490124_katie-notopoulos-katienotopoulos-i-write-about-tech-round.png';
     if (name.isNotEmpty) {
-      context.read<AuthProvider>().sendUserInfo(uid, image, name, context);
+      context.read<MyAuthProvider>().sendUserInfo(uid, image, name, context);
     }
   }
 

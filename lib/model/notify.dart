@@ -1,4 +1,3 @@
-import 'package:messenger/model/chat_id.dart';
 
 class Notify {
   final String type;

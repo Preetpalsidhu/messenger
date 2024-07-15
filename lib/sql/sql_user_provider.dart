@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/sql/models/contact.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SqlUserProvider extends ChangeNotifier {

@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:messenger/features/auth/provider/auth_provider.dart';
-import 'package:messenger/features/chat/provider/chat_provider.dart';
 import 'package:messenger/model/status_model.dart';
 import 'package:messenger/model/user_model.dart';
 import 'package:provider/provider.dart';
@@ -24,16 +22,16 @@ class StatusProvider extends ChangeNotifier {
       var statusId = const Uuid().v1();
       String uid = auth.currentUser!.uid;
       String phone = "";
-      var user = context.read<AuthProvider>().getCurrentUserData();
+      var user = context.read<MyAuthProvider>().getCurrentUserData();
       user.then((data) {
         phone = data!.phoneNumber;
-        print(data!.uid);
+        print(data.uid);
         print(phone);
       });
       UploadTask uploadTask = FirebaseStorage.instance
           .ref()
           .child("/status/$uid")
-          .putFile(statusImage!);
+          .putFile(statusImage);
       TaskSnapshot snap = await uploadTask;
       String imageUrl = await snap.ref.getDownloadURL();
       print(imageUrl);

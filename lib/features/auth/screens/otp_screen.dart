@@ -3,7 +3,7 @@ import 'package:messenger/features/auth/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class OtpScreen extends StatefulWidget {
-  OtpScreen({super.key, required this.verificationId});
+  const OtpScreen({super.key, required this.verificationId});
   final verificationId;
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -15,12 +15,12 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     verifyOTP(val) async {
       print(val);
-      context.read<AuthProvider>().otpVerification(context, val);
+      context.read<MyAuthProvider>().otpVerification(context, val);
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Verifying your number'),
+        title: const Text('Verifying your number'),
       ),
       body: Center(
           child: Column(

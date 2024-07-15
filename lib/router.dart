@@ -4,10 +4,8 @@ import 'package:messenger/features/auth/screens/otp_screen.dart';
 import 'package:messenger/features/auth/screens/user_information.screen.dart';
 import 'package:messenger/features/chat/screens/mobile_chat_screen.dart';
 import 'package:messenger/features/status/screens/confirm_status_screen.dart';
-import 'package:messenger/features/status/screens/status_screen.dart';
 import 'package:messenger/mobile_layout_screen.dart';
 import 'package:messenger/features/selectContacts/screens/select_contact_screen.dart';
-import 'package:messenger/model/status_model.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

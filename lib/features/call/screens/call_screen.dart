@@ -1,5 +1,4 @@
 import 'package:agora_uikit/agora_uikit.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger/config/agora.dart';
 import 'package:messenger/features/call/provider/call_provider.dart';

@@ -37,7 +37,7 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
   var chatId;
 
   getData() async {
-    user = await context.read<AuthProvider>().getCurrentUserData();
+    user = await context.read<MyAuthProvider>().getCurrentUserData();
     print(widget.uid);
     receiver = await context.read<ChatProvider>().getProfile(widget.uid);
     print(receiver.uid);
@@ -54,7 +54,7 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
     UserModel? currentUser;
     String callId = const Uuid().v1();
     var res = await context
-        .read<AuthProvider>()
+        .read<MyAuthProvider>()
         .getCurrentUserData()
         .then((value) => currentUser = value!);
     Call senderCallData = Call(
@@ -106,13 +106,13 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
                     return Column(
                       children: [
                         Text(receiver.name),
-                        Text(
-                          snapshot.data!.isOnline ? 'online' : 'offline',
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        )
+                        // Text(
+                        //   snapshot.data!.isOnline ? 'online' : 'offline',
+                        //   style: const TextStyle(
+                        //     fontSize: 13,
+                        //     fontWeight: FontWeight.normal,
+                        //   ),
+                        // )
                       ],
                     );
                   }
@@ -127,14 +127,14 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
             },
             icon: const Icon(Icons.video_call),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.call),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(Icons.call),
+          // ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(Icons.more_vert),
+          // ),
         ],
       ),
       body: isLoading

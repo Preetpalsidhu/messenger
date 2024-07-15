@@ -10,7 +10,7 @@ class ContactProvider extends ChangeNotifier {
         withProperties: true, withPhoto: true);
 
     for (var element in contacts) {
-      var res = await firestore
+      var res = firestore
           .collection("users")
           .where("phoneNume", isEqualTo: element.phones[0].number);
       print(res);

@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:messenger/features/auth/screens/otp_screen.dart';
 import 'package:messenger/features/auth/screens/user_information.screen.dart';
 import 'package:messenger/features/chat/provider/chat_provider.dart';
@@ -14,7 +12,7 @@ import 'package:messenger/model/message.dart';
 import 'package:messenger/model/user_model.dart';
 import 'package:messenger/sql/sql_message_provider.dart';
 
-class AuthProvider extends ChangeNotifier {
+class MyAuthProvider extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   var verifyId;
@@ -29,6 +27,7 @@ class AuthProvider extends ChangeNotifier {
       UserModel user = UserModel.fromMap(userData.data()!);
       return user;
     }
+    return null;
   }
 
   signIn(context, phoneNum) async {
@@ -43,7 +42,7 @@ class AuthProvider extends ChangeNotifier {
           throw Exception(e.message);
         },
         codeSent: ((String verificationId, int? resendToken) async {
-          print("code sent ${verificationId}");
+          print("code sent $verificationId");
           verifyId = verificationId;
           Navigator.pushNamed(
             context,
@@ -52,8 +51,8 @@ class AuthProvider extends ChangeNotifier {
         }),
         codeAutoRetrievalTimeout: (verificationId) {},
       );
-    } on FirebaseAuthException catch (error) {
-      throw (error);
+    } on FirebaseAuthException {
+      rethrow;
     }
   }
 
@@ -129,10 +128,8 @@ class AuthProvider extends ChangeNotifier {
 
   sendUserInfo(uid, image, name, context) async {
     try {
-      UploadTask uploadTask = FirebaseStorage.instance
-          .ref()
-          .child("/profile/${uid}")
-          .putFile(image!);
+      UploadTask uploadTask =
+          FirebaseStorage.instance.ref().child("/profile/$uid").putFile(image!);
       TaskSnapshot snap = await uploadTask;
       String photoUrl = await snap.ref.getDownloadURL();
       var user = UserModel(

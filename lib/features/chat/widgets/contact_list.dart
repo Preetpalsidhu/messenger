@@ -6,6 +6,7 @@ import 'package:messenger/features/group/screens/group_chat_screen.dart';
 import 'package:messenger/features/selectContacts/screens/select_contact_screen.dart';
 import 'package:messenger/model/recent_chat.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class ContactsList extends StatefulWidget {
   const ContactsList({super.key});
@@ -37,35 +38,36 @@ class _ContactListState extends State<ContactsList> {
 
   @override
   Widget build(BuildContext context) {
+    var outputFormat = DateFormat('MM/dd/yy hh:mm a');
     return Scaffold(
       body: ListView.builder(
           itemCount: data.length,
           itemBuilder: (context, index) {
             return ListTile(
-              onTap: () {
-                if (data[index].isGroup) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            GroupChatScreen(groupId: data[index].chatId)),
-                  );
-                } else {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            MobileChatScreen(uid: data[index].uid)),
-                  );
-                }
-              },
-              leading: CircleAvatar(
-                child: Image.network(data[index].profilePic),
-              ),
-              title: Text(data[index].name),
-              subtitle: Text(data[index].lastMessage),
-              trailing: Text(data[index].timeSent.toString()),
-            );
+                onTap: () {
+                  if (data[index].isGroup) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              GroupChatScreen(groupId: data[index].chatId)),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              MobileChatScreen(uid: data[index].uid)),
+                    );
+                  }
+                },
+                leading: CircleAvatar(
+                  child: Image.network(data[index].profilePic),
+                ),
+                title: Text(data[index].name),
+                subtitle: Text(data[index].lastMessage,
+                    overflow: TextOverflow.ellipsis),
+                trailing: Text(outputFormat.format(data[index].timeSent)));
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
